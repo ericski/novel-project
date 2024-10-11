@@ -55,6 +55,9 @@
     "extra": {
         "laravel": {
             "dont-discover": []
+        },
+        "nova": {
+            "license-key": "${NOVA_LICENSE_KEY}"
         }
     },
     "config": {
