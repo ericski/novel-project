@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Flag;
 use App\Nova\BannedWord;
 use App\Nova\DiscordInvite;
 use App\Nova\Event;
@@ -26,10 +27,35 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
         Nova::initialPath('/resources/users');
 
         Nova::mainMenu(fn ($request) => [
-            MenuSection::resource(User::class)->icon('user-group'),
-            MenuSection::resource(Project::class),
+            MenuSection::resource(User::class)
+                ->icon('user-group')
+                ->withBadgeIf(
+                    fn() => Flag::where('flaggable_type', \App\Models\User::class)
+                        ->distinct('flaggable_id')
+                        ->count(),
+                    'danger',
+                    fn() => Flag::where('flaggable_type', \App\Models\User::class)
+                        ->distinct('flaggable_id')
+                        ->count() > 0
+                ),
+            MenuSection::resource(Project::class)
+                ->icon('briefcase')
+                ->withBadgeIf(
+                    fn() => Flag::where('flaggable_type', \App\Models\Project::class)
+                        ->distinct('flaggable_id')
+                        ->count(),
+                    'danger',
+                    fn() => Flag::where('flaggable_type', \App\Models\Project::class)
+                        ->distinct('flaggable_id')
+                        ->count() > 0
+                ),
             MenuSection::resource(BannedWord::class)->icon('ban'),
-            MenuSection::resource(DiscordInvite::class)->icon('link'),
+            MenuSection::resource(DiscordInvite::class)
+                ->icon('link')
+                ->withBadgeIf(fn() => DiscordInvite::$model::where('sent', false)->count(),
+                    'info',
+                    fn() => DiscordInvite::$model::where('sent', false)->count() > 0
+                ),
             MenuSection::resource(Event::class)->icon('calendar'),
         ]);
     }
