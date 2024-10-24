@@ -1,13 +1,13 @@
 @php
     $tabs = [
-        ['title' => 'All', 'url' => route('people.index')],
         ['title' => 'Friends', 'url' => route('people.index', ['friends' => 'true'])],
+        ['title' => 'All', 'url' => route('people.index')],
     ];
 @endphp
 
 <x-app-layout :tabs="$tabs" :active="$active">
     <x-slot name="header">
-        {{ __('Users') }}
+        {{ __('People') }}
     </x-slot>
 
     <div class="py-12">
