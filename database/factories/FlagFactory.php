@@ -18,9 +18,13 @@ class FlagFactory extends Factory
     public function definition(): array
     {
         $model = $this->faker->randomElement(['App\Models\Project', 'App\Models\User']);
-        $model = $model::factory()->create([
-            'event_id' => null,
-        ]);
+        $defaults = [];
+        if ($model === 'App\Models\Project') {
+            $defaults = [
+                'event_id' => null
+            ];
+        }
+        $model = $model::factory()->create($defaults);
         return [
             'user_id' => User::factory(),
             'flaggable_type' => $model::class,
