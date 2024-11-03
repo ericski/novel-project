@@ -5,6 +5,7 @@ namespace App\Nova;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules;
 use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Image;
@@ -101,6 +102,10 @@ class User extends Resource
                 ->sortable()
                 ->filterable()
                 ->rules('boolean'),
+
+            Date::make('Member Since', 'created_at')
+                ->sortable()
+                ->exceptOnForms(),
 
             Password::make('Password')
                 ->onlyOnForms()
