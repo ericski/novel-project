@@ -6,7 +6,6 @@
             </div>
             <div class="min-w-0 flex-auto">
                 <p class="text-sm font-semibold leading-6 text-gray-400 dark:text-white"><a href="{{ route('people.show', $user->profile) }}">{{ $user->name }}</a></p>
-                <p class="mt-1 truncate text-xs leading-5 text-gray-400">{{ $user->email }} (only show if friends?, don't show at all?)</p>
             </div>
         </div>
         @if($user->currentProject())
