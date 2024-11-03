@@ -56,10 +56,6 @@ Route::post('projects/{project}/updates', 'App\Http\Controllers\ProjectUpdateCon
     ->middleware(['auth'])
     ->name('projects.updates.store');
 
-Route::get('events/create', 'App\Http\Controllers\EventController@create')
-    ->middleware(['auth'])
-    ->name('events.create');
-
 Route::get('events', 'App\Http\Controllers\EventController@index')
     ->middleware(['auth'])
     ->name('events.index');
@@ -67,9 +63,5 @@ Route::get('events', 'App\Http\Controllers\EventController@index')
 Route::get('events/{event:slug}', 'App\Http\Controllers\EventController@show')
     ->middleware(['auth'])
     ->name('events.show');
-
-Route::get('events/{event}/join', 'App\Http\Controllers\EventController@show')
-    ->middleware(['auth'])
-    ->name('events.join');
 
 require __DIR__.'/auth.php';
