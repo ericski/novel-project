@@ -49,7 +49,7 @@ new class extends Component
             if (isFollowing) {
                 button.innerText = 'Unfollow';
             } else {
-                button.innerText = 'Follow';
+                button.innerText = ' Follow ';
             }
         });
     });
