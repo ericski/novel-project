@@ -33,7 +33,8 @@
                         </div>
                         <div class="bg-gray-50 px-4 py-5 sm:p-6">
                             <div class="text-sm leading-5 text-gray-500 dark:text-gray-400">
-                                @include('projects.progress-chart', ['project' => Auth::user()->currentProject()])
+                                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                                @include('projects.progress-chart', ['chart_data' => Auth::user()->currentProject()->getChartData(), 'id' => 'overallChart'])
                             </div>
                         </div>
                     </div>
