@@ -99,7 +99,7 @@ class Project extends Model
         $this->attributes['slug'] = Str::slug($slug);
     }
 
-    public function getChartData(): array
+    public function getChartData($type = 'overall'): array
     {
         $data = [
             'labels' => [],
@@ -109,7 +109,7 @@ class Project extends Model
         foreach ($this->updates as $update) {
             $running_total += $update->count;
             $data['labels'][] = $update->date->format('Y-m-d');
-            $data['progress'][] = $running_total;
+            $data['progress'][] = $type == 'daily' ? $update->count : $running_total;
         }
         return $data;
     }

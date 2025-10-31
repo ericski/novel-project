@@ -1,20 +1,19 @@
 <div>
-    <canvas id="progress-chart"></canvas>
+    <canvas id="{{ $id }}"></canvas>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
-    const ctx = document.getElementById('progress-chart');
-    const labels = @json($project->getChartData()['labels']);
-    const counts = @json($project->getChartData()['progress']);
+    const ctx_{{ $id }} = document.getElementById('{{ $id }}');
+    const labels_{{ $id }} = @json($chart_data['labels']);
+    const counts_{{ $id }} = @json($chart_data['progress']);
 
-    let pchart = new Chart(ctx, {
+    let pchart_{{ $id }} = new Chart(ctx_{{ $id }}, {
         type: 'line',
         data: {
-            labels: labels,
+            labels: labels_{{ $id }},
             datasets: [{
                 label: 'Progress',
-                data: counts,
+                data: counts_{{ $id }},
                 fill: false,
                 borderColor: 'rgb(75, 192, 192)',
                 tension: 0.1

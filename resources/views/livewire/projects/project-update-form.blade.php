@@ -45,12 +45,14 @@ new class extends Component {
         }
 
         // Emit an event to update the graph and progress bar
+        $overall = $this->project->getChartData();
         $this->dispatch('updateGraph', [
             'count' => $existing ? $existing->count + $this->count : $this->count,
             'date' => $this->date,
             'percent' => $this->project->progress,
-            'labels' => $this->project->getChartData()['labels'],
-            'progress' => $this->project->getChartData()['progress'],
+            'labels' => $overall['labels'],
+            'progress' => $overall['progress'],
+            'daily' => $this->project->getChartData('daily')['progress'],
         ]);
 
         // Reset form fields
@@ -95,9 +97,12 @@ new class extends Component {
         progressBar.style.width = update.percent + '%';
 
         // Update the chart here
-        pchart.data.labels = update.labels;
-        pchart.data.datasets[0].data = update.progress;
-        pchart.update();
+        pchart_overallChart.data.labels = update.labels;
+        pchart_overallChart.data.datasets[0].data = update.progress;
+        pchart_overallChart.update();
+        pchart_dailyChart.data.labels = update.labels;
+        pchart_dailyChart.data.datasets[0].data = update.daily;
+        pchart_dailyChart.update();
 
 
     });

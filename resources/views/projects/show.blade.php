@@ -10,6 +10,7 @@
     @endcan
 
     <div class="py-12">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
@@ -48,8 +49,12 @@
                             </div>
                         </div>
                         <div class="mt-5">
-                            <h3 class="text-lg mb-3 text-center font-semibold">Progress</h3>
-                            @include('projects.progress-chart', ['project' => $project])
+                            <h3 class="text-lg mb-3 text-center font-semibold">Goal Progress</h3>
+                            @include('projects.progress-chart', ['chart_data' => $project->getChartData(), 'id' => 'overallChart'])
+                        </div>
+                        <div class="mt-5">
+                            <h3 class="text-lg mb-3 text-center font-semibold">Daily Progress</h3>
+                            @include('projects.progress-chart', ['chart_data' => $project->getChartData('daily'), 'id' => 'dailyChart'])
                         </div>
                     </div>
                 </div>
