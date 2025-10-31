@@ -2,15 +2,16 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Str;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory, Notifiable;
 
@@ -24,6 +25,8 @@ class User extends Authenticatable
         'email',
         'password',
         'avatar',
+        'profile',
+        'bio',
     ];
 
     /**
@@ -57,6 +60,17 @@ class User extends Authenticatable
         $this->attributes['avatar'] = $value;
         $this->flags()->delete();
         $this->censored = false;
+    }
+
+    // Automatically set the profile to the name slugified
+    public function setProfileAttribute($value): void
+    {
+        $profile = Str::slug($value);
+        $i = 1;
+        while (User::where('profile', $profile)->exists()) {
+            $profile = Str::slug($value).'-'.$i++;
+        }
+        $this->attributes['profile'] = $profile;
     }
 
     public function followers(): BelongsToMany

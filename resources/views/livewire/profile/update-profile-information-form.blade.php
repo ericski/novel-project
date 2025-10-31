@@ -32,7 +32,9 @@ new class extends Component
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)->ignore($user->id)],
         ]);
 
+
         $user->fill($validated);
+        $user->profile = $validated['name'];
 
         if ($user->isDirty('email')) {
             $user->email_verified_at = null;

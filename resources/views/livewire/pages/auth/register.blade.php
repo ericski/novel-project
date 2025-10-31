@@ -27,12 +27,24 @@ new #[Layout('layouts.guest')] class extends Component
         ]);
 
         $validated['password'] = Hash::make($validated['password']);
+        $validated['avatar'] = 'https://ui-avatars.com/api/?name='.$validated['name'];
+        $validated['profile'] = $this->getProfileName($validated['name']);
 
         event(new Registered($user = User::create($validated)));
 
         Auth::login($user);
 
         $this->redirect(route('dashboard', absolute: false), navigate: true);
+    }
+
+    private function getProfileName(string $name): string
+    {
+        $profile = Str::slug($name);
+        $i = 1;
+        while (User::where('profile', $profile)->exists()) {
+            $profile = Str::slug($name).'-'.$i++;
+        }
+        return $profile;
     }
 }; ?>
 
