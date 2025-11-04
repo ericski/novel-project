@@ -44,6 +44,12 @@
                                         <h2 class="text-lg font-semibold p-4 pb-1">Update Progress</h2>
                                         @livewire('projects.project-update-form', ['project' => $project])
                                     </div>
+                                    <div class="mt-2 bg-gray-100 border-gray-300 rounded">
+                                        <h2 class="text-lg font-semibold p-4 pb-1">Update Log</h2>
+                                        <div class="px-4 pb-4">
+                                            <a href="{{ route('projects.history.index', $project->id) }}" class="text-blue-600">View Log</a>
+                                        </div>
+                                    </div>
                                 @endcan
                                 <div class="mt-5">{{ $project->description }}</div>
                             </div>

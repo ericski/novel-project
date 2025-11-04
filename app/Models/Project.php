@@ -68,6 +68,11 @@ class Project extends Model
         return $this->hasMany(ProjectUpdate::class)->orderBy('date');
     }
 
+    public function latestUpdates(): HasMany
+    {
+        return $this->hasMany(ProjectUpdate::class)->orderBy('date', 'DESC');
+    }
+
     public function flags(): MorphMany
     {
         return $this->morphMany(Flag::class, 'flaggable');

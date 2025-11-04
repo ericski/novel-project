@@ -52,6 +52,11 @@ Route::post('projects', 'App\Http\Controllers\ProjectController@store')
     ->middleware(['auth'])
     ->name('projects.store');
 
+Route::get('projects/{project}/history', 'App\Http\Controllers\ProjectUpdateController@index')
+    ->middleware(['auth', 'can:update,project'])
+    ->name('projects.history.index');
+
+
 Route::get('events', 'App\Http\Controllers\EventController@index')
     ->middleware(['auth'])
     ->name('events.index');
