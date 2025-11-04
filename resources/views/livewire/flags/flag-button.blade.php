@@ -37,7 +37,7 @@ new class extends Component {
 }
 ?>
 <div>
-    <x-primary-button id="flag-button" title="(Un)Flag this image as inappropriate" wire:click="toggleFlag">
+    <x-primary-button id="flag-button" title="{{ $isFlagged ? 'You have flagged this image as inappropriate, you can click this button again to un-flag the image' : 'Flag this image as inappropriate' }}" wire:click="toggleFlag">
         @if ($isFlagged)
             <svg style="height:17px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                  class="size-6">
