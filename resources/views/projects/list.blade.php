@@ -12,7 +12,7 @@
 
         <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end w-28 gap-y-2">
             <x-status-badge :status="$project->status" />
-            <x-progress-bar :progress="$project->progress" />
+            <x-progress-bar :progress="$project->progress" width="w-64"/>
         </div>
     </li>
 

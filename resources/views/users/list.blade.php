@@ -11,7 +11,7 @@
         @if($user->currentProject())
             <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
                 <p class="text-xs font-semibold leading-6 text-gray-400 dark:text-white"><a href="{{ route('projects.show', $user->currentProject()->slug) }}">{{ $user->currentProject()->title }}</a>
-                <x-progress-bar :progress="$user->currentProject()->progress" />
+                <x-progress-bar :progress="$user->currentProject()->progress" width="w-64"/>
             </div>
         @endif
     </li>
