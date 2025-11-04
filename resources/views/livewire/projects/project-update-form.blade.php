@@ -103,12 +103,14 @@ new class extends Component {
 <script>
     $wire.on('updateGraph', (data) => {
         const update = data[0];
-        // Update the graph here
+        // Update progress bar (if on show page)
         let wrapper = document.getElementById('progress-bar');
-        // Set the "title" attribute of the first child
-        wrapper.firstChild.setAttribute('title', update.percent + '%');
-        let progressBar = document.getElementById('progress-bar').querySelector('.bg-blue-600');
-        progressBar.style.width = update.percent + '%';
+        if(wrapper) {
+            // Set the "title" attribute of the first child
+            wrapper.firstChild.setAttribute('title', update.percent + '%');
+            let progressBar = document.getElementById('progress-bar').querySelector('.bg-blue-600');
+            progressBar.style.width = update.percent + '%';
+        }
 
         // Update the charts here
         pchart_overallChart.data.labels = update.labels;

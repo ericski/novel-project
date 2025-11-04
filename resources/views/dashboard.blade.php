@@ -4,7 +4,7 @@
             {{ __('Dashboard') }}
         </h2>
     </x-slot>
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             <!-- Create a 4 column grid layout -->
@@ -35,6 +35,16 @@
                             <div class="text-sm leading-5 text-gray-500 dark:text-gray-400">
                                 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
                                 @include('projects.progress-chart', ['chart_data' => Auth::user()->currentProject()->getChartData(), 'id' => 'overallChart'])
+                            </div>
+                        </div>
+                    </div>
+                    <div class="divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow bg-color-gray sm:col-span-2">
+                        <div class="px-4 py-5 sm:px-6 flex justify-between bg-white">
+                            <h3 class="text-lg font-semibold leading-6 text-gray-900 dark:text-gray-200">Update Active Project Progress</h3>
+                        </div>
+                        <div class="bg-gray-50 px-4 py-5 sm:p-6">
+                            <div class="text-sm leading-5 text-gray-500 dark:text-gray-400">
+                                @livewire('projects.project-update-form', ['project' =>  Auth::user()->currentProject()])
                             </div>
                         </div>
                     </div>
