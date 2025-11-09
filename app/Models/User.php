@@ -27,6 +27,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'avatar',
         'profile',
         'bio',
+        'timezone',
     ];
 
     /**

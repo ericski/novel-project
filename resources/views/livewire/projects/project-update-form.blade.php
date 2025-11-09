@@ -20,7 +20,10 @@ new class extends Component {
     public function mount(Project $project)
     {
         $this->project = $project;
-        $this->date = now()->format('Y-m-d');
+
+        // Use the current user's timezone for the date
+        $userTimezone = auth()->user()->timezone ?? 'America/Detroit';
+        $this->date = now()->timezone($userTimezone)->format('Y-m-d');
     }
 
     public function update()

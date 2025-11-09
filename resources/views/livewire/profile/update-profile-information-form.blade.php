@@ -10,6 +10,7 @@ new class extends Component
 {
     public string $name = '';
     public string $email = '';
+    public string $timezone = '';
 
     /**
      * Mount the component.
@@ -18,6 +19,7 @@ new class extends Component
     {
         $this->name = Auth::user()->name;
         $this->email = Auth::user()->email;
+        $this->timezone = Auth::user()->timezone ?? 'America/Detroit';
     }
 
     /**
@@ -30,6 +32,7 @@ new class extends Component
         $validated = $this->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)->ignore($user->id)],
+            'timezone' => ['required', 'string', 'timezone:all'],
         ]);
 
 
@@ -43,6 +46,15 @@ new class extends Component
         $user->save();
 
         $this->dispatch('profile-updated', name: $user->name);
+    }
+
+    /**
+     * Get list of timezones for dropdown
+     */
+    public function getTimezonesProperty(): array
+    {
+        $timezones = timezone_identifiers_list();
+        return array_combine($timezones, $timezones);
     }
 
     /**
@@ -104,6 +116,12 @@ new class extends Component
                     @endif
                 </div>
             @endif
+        </div>
+
+        <div>
+            <x-input-label for="timezone" :value="__('Timezone')" />
+            <x-select-dropdown wire:model="timezone" :options="$this->timezones" placeholder="Select your timezone" />
+            <x-input-error class="mt-2" :messages="$errors->get('timezone')" />
         </div>
 
         <div class="flex items-center gap-4">
