@@ -12,7 +12,7 @@
                 <!-- Profile card -->
                 @include('users.profile-card', ['user' => Auth::user()])
 
-                @include('users.following-card', ['users' => Auth::user()->following()->limit(5)->get()])
+                @include('users.following-card', ['users' => Auth::user()->following()->orderBy('user_follows.pinned', 'desc')->orderBy('users.name', 'asc')->limit(5)->get()])
 
 
                 @if (Auth::user()->currentProject())

@@ -51,6 +51,9 @@ new class extends Component
             } else {
                 button.innerText = ' Follow ';
             }
+
+            // Dispatch a browser event for Alpine.js to listen to
+            window.dispatchEvent(new CustomEvent('following-toggled', { detail: isFollowing }));
         });
     });
 </script>

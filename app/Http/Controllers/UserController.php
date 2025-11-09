@@ -13,7 +13,11 @@ class UserController extends Controller
         $active = 'All';
 
         if (request()->has('friends')) {
-            $users = Auth::user()->following()->paginate(25)->withQueryString();
+            $users = Auth::user()->following()
+                ->orderBy('user_follows.pinned', 'desc')
+                ->orderBy('users.name', 'asc')
+                ->paginate(25)
+                ->withQueryString();
             $active = 'Friends';
         }
         return view('users.index', [

@@ -16,8 +16,16 @@
                                 <!-- two column layout for buttons -->
                                 <div class="flex justify-between">
                                     @if($user->id !== Auth::user()->id)
-                                        <div class="follow mr-1">
-                                            <livewire:profile.follow-button user="{{$user->id}}" />
+                                        @php
+                                            $isFollowing = Auth::user()->following->contains($user->id);
+                                        @endphp
+                                        <div class="flex gap-2" x-data="{ showPinButton: @js($isFollowing) }" @following-toggled.window="showPinButton = $event.detail">
+                                            <div class="follow">
+                                                <livewire:profile.follow-button user="{{$user->id}}" />
+                                            </div>
+                                            <div class="pin" x-show="showPinButton" x-transition>
+                                                <livewire:profile.pin-button user="{{$user->id}}" />
+                                            </div>
                                         </div>
                                     @endif
                                     <div class="flag">
