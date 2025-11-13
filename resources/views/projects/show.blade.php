@@ -56,11 +56,11 @@
                         </div>
                         <div class="mt-5">
                             <h3 class="text-lg mb-3 text-center font-semibold">Goal Progress</h3>
-                            @include('projects.progress-chart', ['chart_data' => $project->getChartData(), 'id' => 'overallChart'])
+                            @include('projects.progress-chart', ['chart_data' => $project->getChartData(), 'id' => 'overallChart', 'chart_type' => Auth::user()->chart_preference ?? 'line'])
                         </div>
                         <div class="mt-5">
                             <h3 class="text-lg mb-3 text-center font-semibold">Daily Progress</h3>
-                            @include('projects.progress-chart', ['chart_data' => $project->getChartData('daily'), 'id' => 'dailyChart'])
+                            @include('projects.progress-chart', ['chart_data' => $project->getChartData('daily'), 'id' => 'dailyChart', 'chart_type' => Auth::user()->chart_preference ?? 'line'])
                         </div>
                     </div>
                 </div>

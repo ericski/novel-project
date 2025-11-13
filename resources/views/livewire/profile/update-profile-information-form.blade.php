@@ -11,6 +11,7 @@ new class extends Component
     public string $name = '';
     public string $email = '';
     public string $timezone = '';
+    public string $chart_preference = '';
 
     /**
      * Mount the component.
@@ -20,6 +21,7 @@ new class extends Component
         $this->name = Auth::user()->name;
         $this->email = Auth::user()->email;
         $this->timezone = Auth::user()->timezone ?? 'America/Detroit';
+        $this->chart_preference = Auth::user()->chart_preference ?? 'line';
     }
 
     /**
@@ -33,6 +35,7 @@ new class extends Component
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)->ignore($user->id)],
             'timezone' => ['required', 'string', 'timezone:all'],
+            'chart_preference' => ['required', 'string', 'in:line,bar'],
         ]);
 
 
@@ -122,6 +125,12 @@ new class extends Component
             <x-input-label for="timezone" :value="__('Timezone')" />
             <x-select-dropdown wire:model="timezone" :options="$this->timezones" placeholder="Select your timezone" />
             <x-input-error class="mt-2" :messages="$errors->get('timezone')" />
+        </div>
+
+        <div>
+            <x-input-label for="chart_preference" :value="__('Chart Preference')" />
+            <x-select-dropdown wire:model="chart_preference" :options="['line' => 'Line Chart', 'bar' => 'Bar Chart']" placeholder="Select your chart preference" />
+            <x-input-error class="mt-2" :messages="$errors->get('chart_preference')" />
         </div>
 
         <div class="flex items-center gap-4">

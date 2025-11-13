@@ -12,7 +12,7 @@
                 <!-- Profile card -->
                 @include('users.profile-card', ['user' => Auth::user()])
 
-                @include('users.following-card', ['users' => Auth::user()->following()->orderBy('user_follows.pinned', 'desc')->orderBy('users.name', 'asc')->limit(5)->get()])
+                @include('users.following-card', ['users' => Auth::user()->following()->orderBy('user_follows.pinned', 'desc')->orderBy('user_follows.created_at', 'desc')->limit(5)->get()])
 
 
                 @if (Auth::user()->currentProject())
@@ -34,7 +34,7 @@
                         <div class="bg-gray-50 px-4 py-5 sm:p-6">
                             <div class="text-sm leading-5 text-gray-500 dark:text-gray-400">
                                 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-                                @include('projects.progress-chart', ['chart_data' => Auth::user()->currentProject()->getChartData(), 'id' => 'overallChart'])
+                                @include('projects.progress-chart', ['chart_data' => Auth::user()->currentProject()->getChartData(), 'id' => 'overallChart', 'chart_type' => Auth::user()->chart_preference ?? 'line'])
                             </div>
                         </div>
                     </div>
