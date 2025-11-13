@@ -4,7 +4,6 @@
             {{ __('Dashboard') }}
         </h2>
     </x-slot>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             <!-- Create a 4 column grid layout -->
