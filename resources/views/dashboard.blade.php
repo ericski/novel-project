@@ -11,8 +11,7 @@
                 <!-- Profile card -->
                 @include('users.profile-card', ['user' => Auth::user()])
 
-                @include('users.following-card', ['users' => Auth::user()->following()->orderBy('user_follows.pinned', 'desc')->orderBy('user_follows.created_at', 'desc')->limit(5)->get()])
-
+                @include('projects.my-projects-card', ['projects' => Auth::user()->projects()->orderBy('created_at', 'desc')->limit(5)->get()])
 
                 @if (Auth::user()->currentProject())
                     <div class="divide-y divide-gray-200 overflow-hidden rounded-lg bg-grey-50 shadow">
@@ -26,13 +25,31 @@
                             </div>
                         </div>
                     </div>
+                @else
+                    <div class="divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow">
+                        <div class="px-4 py-5 sm:px-6">
+                            <h3 class="text-lg font-semibold leading-6 text-gray-900 dark:text-gray-200">No active projects</h3>
+                        </div>
+                        <div class="bg-gray-50 px-4 py-5 sm:p-6">
+                            <div class="text-sm leading-5 text-gray-500 dark:text-gray-400">
+                                <p><a href="{{ route('projects.create') }}" class="text-blue-600">Create a new project</a> or set set one of your <a href="{{ route('projects.index') }}" class="text-blue-600">existing projects</a> to active.</p>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
+                @include('events.active-event-card', ['active' => App\Models\Event::where('is_active', true)->get()->first(), 'project' => Auth::user()->currentProject()])
+
+                @include('users.following-card', ['users' => Auth::user()->following()->orderBy('user_follows.pinned', 'desc')->orderBy('user_follows.created_at', 'desc')->limit(5)->get()])
+
+
+                @if (Auth::user()->currentProject())
                     <div class="divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow bg-color-gray sm:col-span-2">
                         <div class="px-4 py-5 sm:px-6 flex justify-between bg-white">
                             <h3 class="text-lg font-semibold leading-6 text-gray-900 dark:text-gray-200">Active Project Progress</h3>
                         </div>
                         <div class="bg-gray-50 px-4 py-5 sm:p-6">
                             <div class="text-sm leading-5 text-gray-500 dark:text-gray-400">
-                                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
                                 @include('projects.progress-chart', ['chart_data' => Auth::user()->currentProject()->getChartData(), 'id' => 'overallChart', 'chart_type' => Auth::user()->chart_preference ?? 'line'])
                             </div>
                         </div>
@@ -44,17 +61,6 @@
                         <div class="bg-gray-50 px-4 py-5 sm:p-6">
                             <div class="text-sm leading-5 text-gray-500 dark:text-gray-400">
                                 @livewire('projects.project-update-form', ['project' =>  Auth::user()->currentProject()])
-                            </div>
-                        </div>
-                    </div>
-                @else
-                    <div class="divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow">
-                        <div class="px-4 py-5 sm:px-6">
-                            <h3 class="text-lg font-semibold leading-6 text-gray-900 dark:text-gray-200">No active projects</h3>
-                        </div>
-                        <div class="bg-gray-50 px-4 py-5 sm:p-6">
-                            <div class="text-sm leading-5 text-gray-500 dark:text-gray-400">
-                                <p><a href="{{ route('projects.create') }}" class="text-blue-600">Create a new project</a> or set set one of your <a href="{{ route('projects.index') }}" class="text-blue-600">existing projects</a> to active.</p>
                             </div>
                         </div>
                     </div>
