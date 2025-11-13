@@ -20,6 +20,10 @@ Route::post('discord', 'App\Http\Controllers\DiscordController@store')
     ->middleware(['auth'])
     ->name('discord.store');
 
+Route::get('search', 'App\Http\Controllers\SearchController@index')
+    ->middleware(['auth'])
+    ->name('search.index');
+
 Route::get('people', 'App\Http\Controllers\UserController@index')
     ->middleware(['auth'])
     ->name('people.index');
