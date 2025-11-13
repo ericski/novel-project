@@ -43,9 +43,10 @@ class Project extends Model
         return $this->goal_type ? 'words' : 'days';
     }
 
-    public function getProgressAttribute(): int
+    public function getProgressAttribute(): float
     {
-        return $this->updates->sum('count') / $this->goal * 100;
+        // Return the stored percent_complete value if it exists, otherwise calculate it
+        return $this->percent_complete ?? ($this->goal > 0 ? ($this->updates->sum('count') / $this->goal * 100) : 0);
     }
 
     public function getCompletedAttribute(): int
