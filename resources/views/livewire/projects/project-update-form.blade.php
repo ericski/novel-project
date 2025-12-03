@@ -89,7 +89,7 @@ new class extends Component {
 
             <div class="p-6">
                 <x-input-label for="type" value="{{ __('Type') }}"/>
-                <x-select-dropdown wire:model="type" :options="['session' => 'Session', 'total' => 'Total']" />
+                <x-select-dropdown wire:model="type" :options="['session' => 'session', 'total' => 'total']" />
                 <x-input-error :messages="$errors->get('type')" class="mt-2"/>
             </div>
 
